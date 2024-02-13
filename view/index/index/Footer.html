@@ -1,0 +1,27 @@
+<!-- 友情链接 -->
+<div class="content top-25">
+	{volist name="mvso_link" id="obj"}
+	<a href="{$obj[1]}" class="link">{$obj[0]}</a>
+	{/volist}
+</div>
+
+<!-- 版权 -->
+<div class="content top-25" style="text-align: center;margin-bottom: 50px;">
+	{$Think.config.config.cnzz}
+	{$Think.config.config.copyright|raw}
+</div>
+<script src="{__PUBLIC_INDEX__}/lib/jquery-3.4.1/jquery-3.4.1.min.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+	// 搜索
+	$('button').click(function(){
+		var data = $('[name="wd"]').val();
+		if(data!=''){
+			window.location.href = '/index/so/wd/' + data + '/type/360';
+		}
+	});
+	
+	// 网站小提示
+	setTimeout(function() {
+		$("#tips").attr("style","display:none");
+	},2000);
+</script>

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="Cache-Control" content="max-age=60">
+		<meta name="keywords" content="{$Think.config.config.keywords},gmeier,ican,www.gmeier.cn">
+		<meta name="description" itemprop="description" content="{$Think.config.config.description}">
+		<title>{$Think.config.config.webtitle}-播放页</title>
+		<link rel="stylesheet" type="text/css" href="{__PUBLIC_INDEX__}/css/style.css?v=2.1.0"/>
+		<link rel="stylesheet" href="{__PUBLIC_INDEX__}/lib/font-awesome-4.7.0/css/font-awesome.min.css" media="all">
+	</head>
+	<body>
+		<style type="text/css">
+			.js{
+				width: 90%;
+				margin: 0 auto;
+				height: auto;
+				display: flex;
+				display: -webkit-flex;
+				justify-content: center;
+				flex-wrap: wrap;
+			}
+			a{
+				display: block;
+				cursor: pointer;
+				padding: 5px 13px;
+				color: #FFF;
+				margin: 1px 1px;
+			}
+		</style>
+		<!-- LOGO -->
+		<a href="/" class="logo" style="display: block;" title="{$Think.config.config.webtitle}"></a>
+		<span id="tips" class="tips">~~~点击上方LOGO跳转首页哦~~~</span>
+		<!-- 搜索框 -->
+		<div class="content search">
+			<form action="" onsubmit="return false;">
+				<input type="text" required="" name="wd" class="border-green" placeholder="请输入您要搜索的内容...">
+				<button type="submit" title="搜索" class="back"></button>
+			</form>
+		</div>
+		<!-- 播放器 -->
+		<div class="content" style="text-align: center;margin-top: 15px;">
+			{if($Request.param.type == 'm'||$Request.param.type == 'tv'||$Request.param.type == 'va'||$Request.param.type == 'ct')}
+			<iframe id="iframe" src="{$mvso_jx[0][1].$mvso_playlist['urls'][$Request.param.number-1]['url']}" data-url="{$mvso_playlist['urls'][$Request.param.number-1]['url']}" data-type="{$Request.param.type}" data-id="{$Request.param.id}" width="100%" height="300px" frameborder="0" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen=""></iframe>
+			{else}
+			<iframe id="iframe" src="{$mvso_jx[0][1].$mvso_m3u8list[$Request.param.number-1][1]}" data-url="{$mvso_m3u8list[$Request.param.number-1][1]}" data-type="{$Request.param.type}" data-id="{$Request.param.id}" width="100%" height="300px" frameborder="0" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen=""></iframe>
+			{/if}
+		</div>
+		<!-- 解析接口 -->
+		<div class="content" style="text-align: center;margin-top: 15px;padding: 10px 0;">
+			<h1 style="cursor: default;">解析接口</h1>
+			<div class="js">
+				{volist name="mvso_jx" id="obj"}
+					<a class="back" href="javascript:(0);" onclick="jx(this)" jx-url="{$obj[1]}">{$obj[0]}</a>
+				{/volist}
+			</div>
+		</div>
+		<!-- 播放地址 -->
+		{if($Request.param.type == 'm'||$Request.param.type == 'tv'||$Request.param.type == 'va'||$Request.param.type == 'ct')}
+		<div class="content" style="text-align: center;margin-top: 15px;padding: 10px 0;">
+			<!-- 播放地址 -->
+			<h1 style="cursor: default;">播放地址</h1>
+			<div class="js">
+				{volist name="mvso_playlist['urls']" id="obj"}
+					<a class="back" href="javascript:(0);" data-number="{$i}" onclick="play(this)">{$obj['from']?$obj['from']:$obj['no']}</a>
+				{/volist}
+			</div>
+		</div>
+		{else}
+		<div class="content" style="text-align: center;margin-top: 15px;padding: 10px 0;">
+			<!-- 播放地址 -->
+			<h1 style="cursor: default;">播放地址</h1>
+			<div class="js">
+				{volist name="mvso_m3u8list" id="obj"}
+					<a class="back" href="javascript:(0);" data-number="{$i}" onclick="m3u8play(this)">{$obj[0]}</a>
+				{/volist}
+			</div>
+		</div>
+		{/if}
+		<!-- 底部 -->
+		<script type="text/javascript">
+			function jx(obj){
+				var jxurl = $(obj).attr('jx-url');
+				var playurl = $('#iframe').attr('data-url');
+				$('#iframe').attr('src',jxurl + playurl);
+			} //解析
+			
+			function play(obj){
+				var number = $(obj).attr('data-number');
+				var type = $('#iframe').attr('data-type');
+				var id = $('#iframe').attr('data-id');
+				window.location.href = '/index/play/type/' + type + '/id/' + id + '/number/' + number;
+			} //播放
+			
+			function m3u8play(obj){
+				var number = $(obj).attr('data-number');
+				var type = $('#iframe').attr('data-type');
+				var id = $('#iframe').attr('data-id');
+				window.location.href = '/index/play/type/' + type + '/id/' + id + '/number/' + number;
+			} //m3u8播放
+		</script>
+		{include file="index/Footer"}
+	</body>
+</html>

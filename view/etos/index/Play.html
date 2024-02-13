@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+	<head>
+		{include file="index/Include"}
+		<title>{$Think.config.config.webtitle}-{$mvso_playlist['name']}{$mvso_m3u8info['name']}在线播放</title>
+	</head>
+	
+	<body>
+		<!-- 引入头部 -->
+		{include file="index/Header"}
+		<main role="main">
+
+			<div class="container">
+				<!-- 播放器 -->
+				<div class="content" style="text-align: center;margin-top: 15px;">
+					{if($Request.param.type == 'm'||$Request.param.type == 'tv'||$Request.param.type == 'va'||$Request.param.type == 'ct')}
+					<iframe id="iframe" src="{$mvso_jx[0][1].$mvso_playlist['urls'][$Request.param.number-1]['url']}" data-url="{$mvso_playlist['urls'][$Request.param.number-1]['url']}" data-type="{$Request.param.type}" data-id="{$Request.param.id}" width="100%" height="350px" frameborder="0" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen=""></iframe>
+					{else}
+					<iframe id="iframe" src="{$mvso_jx[0][1].$mvso_m3u8list[$Request.param.number-1][1]}" data-url="{$mvso_m3u8list[$Request.param.number-1][1]}" data-type="{$Request.param.type}" data-id="{$Request.param.id}" width="100%" height="350px" frameborder="0" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen=""></iframe>
+					{/if}
+				</div>
+				<!-- 播放器 -->
+				
+				<!-- 详情介绍 -->
+				<h4 class="text-break py-1 text-light">{$mvso_playlist['name']}{$mvso_m3u8info['name']}
+				<small class="text-muted h6 ml-1">{$mvso_playlist['jishu']}{$mvso_m3u8info['note']}</small>
+				</h4>
+				<h6 class="text-break py-1">
+					<a class="mr-1 text-light"
+					   href="">{$mvso_playlist['name']}{$mvso_m3u8info['type']}</a>/
+					<a class="mr-1 text-light"
+					   href="">{$mvso_playlist['area']}{$mvso_m3u8info['area']}</a>/
+					<a class="mr-1 text-light"
+					   href="">{$mvso_playlist['year']}{$mvso_m3u8info['year']}</a>/
+					{$mvso_m3u8info['last']}
+				</h6>
+				<h6 class="text-break">
+					<a class="mt-2 mr-2 text-light" href="">{$mvso_playlist['actor']}{$mvso_m3u8info['actor']}</a>
+				</h6>
+				<p class="text-muted">{$mvso_playlist['des']}{$mvso_m3u8info['des']}</p>
+				<!-- 详情介绍 -->
+				
+				<!-- 解析接口 -->
+				<div class="row px-md-2 mb-3">
+					{volist name="mvso_jx" id="obj"}
+					<div class="col-3 col-md-1 mb-2 px-2 px-md-2">
+						<a class="btn btn-sm btn-block btn-dark" href="javascript:(0);" onclick="jx(this)" jx-url="{$obj[1]}">{$obj[0]}</a>
+					</div>
+					{/volist}
+				</div>
+				<!-- 解析接口 -->
+				
+				<!-- 播放地址 -->
+				{if($Request.param.type == 'm'||$Request.param.type == 'tv'||$Request.param.type == 'va'||$Request.param.type == 'ct')}
+				<div class="row px-md-2 mb-3">
+					{volist name="mvso_playlist['urls']" id="obj"}
+					<div class="col-3 col-md-1 mb-2 px-2 px-md-2">
+						<a class="btn btn-sm btn-block btn-dark" href="javascript:(0);" data-number="{$i}" onclick="play(this)">{$obj['from']?$obj['from']:$obj['no']}</a>
+					</div>
+					{/volist}
+				</div>
+				{else}
+				<div class="row px-md-2 mb-3">
+					{volist name="mvso_m3u8list" id="obj"}
+					<div class="col-3 col-md-1 mb-2 px-2 px-md-2">
+						<a class="btn btn-sm btn-block btn-dark" href="javascript:(0);" data-number="{$i}" onclick="m3u8play(this)">{$obj[0]}</a>
+					</div>
+					{/volist}
+				</div>
+				{/if}
+				<!-- 播放地址 -->
+				
+				<!-- 引入底部 -->
+				{include file="index/Footer"}
+				<!-- 引入底部 -->
+				
+			</div>
+
+		</main>
+		<script type="text/javascript">
+			function jx(obj){
+				var jxurl = $(obj).attr('jx-url');
+				var playurl = $('#iframe').attr('data-url');
+				$('#iframe').attr('src',jxurl + playurl);
+			} //解析
+			
+			function play(obj){
+				var number = $(obj).attr('data-number');
+				var type = $('#iframe').attr('data-type');
+				var id = $('#iframe').attr('data-id');
+				window.location.href = '/index/play/type/' + type + '/id/' + id + '/number/' + number;
+			} //播放
+			
+			function m3u8play(obj){
+				var number = $(obj).attr('data-number');
+				var type = $('#iframe').attr('data-type');
+				var id = $('#iframe').attr('data-id');
+				window.location.href = '/index/play/type/' + type + '/id/' + id + '/number/' + number;
+			} //m3u8播放
+		</script>
+	</body>
+</html>

@@ -1,0 +1,41 @@
+<header role="header">
+	<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+		<div class="container">
+			<a class="navbar-brand" href="/">{$Think.config.config.webtitle}</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#xiaonav" aria-controls="xiaonav" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="xiaonav">
+				<ul class="navbar-nav mr-auto">
+					<li class="nav-item active" data-active="indexindex">
+						<a class="nav-link" href="/">首页
+							<span class="sr-only"></span>
+						</a>
+					</li>
+					<li class="nav-item" data-active="categorydianying" data-cid="2">
+						<a class="nav-link" href="/index/index/list/dianying/page/1">电影</a>
+					</li>
+					<li class="nav-item" data-active="categorydianshi" data-cid="3">
+						<a class="nav-link" href="/index/index/list/dianshi/page/1">电视剧</a>
+					</li>
+					<li class="nav-item" data-active="categoryzongyi" data-cid="4">
+						<a class="nav-link" href="/index/index/list/zongyi/page/1">综艺</a>
+					</li>
+					<li class="nav-item" data-active="categorydongman" data-cid="5">
+						<a class="nav-link" href="/index/index/list/dongman/page/1">动漫</a>
+					</li>
+				</ul>
+				<form class="form-inline my-2 my-lg-0" action="" onsubmit="return false;">
+					<div class="input-group mr-sm-2">
+						<input class="form-control" name="wd" type="text" placeholder="片名或主演" />
+						<div class="input-group-append">
+							<button class="btn btn-outline-light" type="submit">
+								<i class="fa fa-search"></i>
+							</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</nav>
+</header>

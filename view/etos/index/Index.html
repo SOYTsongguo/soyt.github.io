@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+	<head>
+		{include file="index/Include"}
+		<title>{$Think.config.config.webtitle}-{$mvso_listtitle}</title>
+	</head>
+	
+	<body>
+		<!-- 引入头部 -->
+		{include file="index/Header"}
+		<main role="main">
+			<div class="container">
+				{if($mvso_listtype == 'index')}
+				<div class="row px-md-2 mb-3">
+					
+					
+					<div class="col-12 col-md-9 px-2 px-md-2">
+						<div id="dcSlide" class="carousel slide" data-ride="carousel">
+							<ol class="carousel-indicators">
+								{volist name="mvso_lunbo" id="obj"}
+								<li data-target="#dcSlide" data-slide-to="{$i-1}" class="{if($i == 1)}active{/if}"></li>
+								{/volist}
+							</ol>
+							<div class="carousel-inner rounded">
+								{volist name="mvso_lunbo" id="obj"}
+								<div class="carousel-item {if($i == 1)}active{/if}">
+									<a href="/index/play/type/{$obj['type']}/id/{$obj['id']}/number/1">
+										<img class="d-block w-100 h-slide" src="{$obj['img']}" alt="{$obj['name']}">
+									</a>
+								</div>
+								{/volist}
+							</div>
+							<a class="carousel-control-prev" href="#dcSlide" role="button" data-slide="prev">
+								<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+								<span class="sr-only">Previous</span>
+							</a>
+							<a class="carousel-control-next" href="#dcSlide" role="button" data-slide="next">
+								<span class="carousel-control-next-icon" aria-hidden="true"></span>
+								<span class="sr-only">Next</span>
+							</a>
+						</div>
+					</div>
+					
+					<div class="col-12 col-md-3 px-2 px-md-3 d-none d-md-inline">
+						<ul class="list-group h-slide overflow-hidden">
+							{volist name="mvso_lunbo" id="obj"}
+							<li class="list-group-item bg-dark d-flex justify-content-between align-items-center">
+								<a class="text-light small" href="/index/play/type/{$obj['type']}/id/{$obj['id']}/number/1">{$obj['name']}</a>
+								<span class="badge badge-light badge-pill">{$i}</span>
+							</li>
+							{/volist}
+						</ul>
+					</div>
+				</div>
+				{/if}
+				<div class="row mb-2">
+					{if($mvso_listtype == 'index')}
+					<div class="col-12 px-2 px-md-3">
+						<fieldset>
+							<legend class="h6">
+								<i class="fa fa-thumbs-o-up text-w`arning"></i>
+								<a class="text-light text-decoration-none" href="/index/index/list/{$mvso_listtype}">{$mvso_listtitle}</a>
+							</legend>
+						</fieldset>
+					</div>
+					{else}
+					<div class="col-12 px-2 px-md-3">
+						<div class="jumbotron py-2 mb-2 bg-dark text-center text-light">
+							{$Think.config.config.webtitle}-{$mvso_listtitle}-当前第{$mvso_listpage}页
+						</div>
+					</div>
+					{/if}
+					{volist name="mvso_list['list']" id="obj"}
+					<div class="col-4 col-md-2 mb-2 mb-md-4 px-2 px-md-3">
+						<div class="card rounded-0 border-0 bg-transparent">
+							<a class="text-light text-decoration-none" href="/index/play/type/{$obj['type']}/id/{$obj['id']}/number/1">
+								<!-- <span class="position-absolute w-100 h-100 bg-play">{$obj['name']}</span> -->
+								<img class="w-100 h-row rounded-top" src="{$obj['img']}" data-original="{$obj['img']}" alt="{$obj['name']}">
+								<p class="bg-dark rounded-bottom text-center text-truncate py-1 px-2 mb-0">{$obj['name']}</p>
+							</a>
+						</div>
+					</div>
+					{/volist}
+				</div>
+				<!-- 页数 -->
+				{if($mvso_listtype != 'index')}
+				<div style="text-align: center;margin-bottom: 15px;">
+					{if($mvso_listpage != 1)}
+					<a href="{$mvso_listpage-1}" style="padding: 3px 8px;background-color: #343a40;;color: #FFF;">{$mvso_listpage-1}</a>
+					{/if}
+					<a href="{$mvso_listpage}" style="padding: 3px 8px;background-color: #343a40;color: #FFF;">{$mvso_listpage}</a>
+					<a href="{$mvso_listpage+1}" style="padding: 3px 8px;background-color: #343a40;color: #FFF;">{$mvso_listpage+1}</a>
+				</div>
+				{/if}
+				<!-- 页数 -->
+				<!-- 底部 -->
+				{include file="index/Footer"}
+			</div>
+		</main>
+	</body>
+
+</html>

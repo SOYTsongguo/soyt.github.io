@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="Cache-Control" content="max-age=60">
+		<meta name="keywords" content="{$Request.param.wd},{$Think.config.config.keywords},gmeier,ican,www.gmeier.cn">
+		<meta name="description" itemprop="description" content="{$Request.param.wd}的搜索结果,{$Think.config.config.description}">
+		<title>{$Request.param.wd}的搜索结果-{$Think.config.config.webtitle}</title>
+		<link rel="stylesheet" type="text/css" href="{__PUBLIC_INDEX__}/css/style.css?v=2.1.0"/>
+		<link rel="stylesheet" href="{__PUBLIC_INDEX__}/lib/font-awesome-4.7.0/css/font-awesome.min.css" media="all">
+	</head>
+	<body>
+		<!-- LOGO -->
+		<a href="/" class="logo" style="display: block;" title="{$Think.config.config.webtitle}"></a>
+		<span id="tips" class="tips">~~~点击上方LOGO跳转首页哦~~~</span>
+		<!-- 搜索框 -->
+		<div class="content search">
+			<form action="" onsubmit="return false;">
+				<input type="text" required="" name="wd" class="border-green" placeholder="请输入您要搜索的内容...">
+				<button type="submit" class="back" title="搜索"></button>
+			</form>
+		</div>
+		<!-- 搜索列表 -->
+		<div class="content top-10 padding-25">
+			<div class="column" style="text-align: center;">
+				<h2 style="margin-bottom: 15px;">{$Request.param.wd}-搜索结果</h2>
+				<div class="lanmu">
+					<a href="/" class="back" title="首页">首页</a>
+					<a href="/index/so/wd/{$Request.param.wd}/type/360" class="back" title="推荐">推荐</a>
+					{volist name="mvso_zy" id="obj"}
+					<a href="/index/so/wd/{$Request.param.wd}/type/{$i-1}" class="back" title="{$obj[0]}">{$obj[0]}</a>
+					{/volist}
+				</div>
+			</div>
+			<ul id="list">
+				{if($Request.param.type == '360')}
+				{volist name="mvso_solist['list']" id="obj"}
+				<li class="list">
+					<a href="/index/play/type/{$obj['type']}/id/{$obj['id']}/number/1" class="list-a">
+						<img class="list-img" src="{$obj['img']}" title="{$obj['name']}">
+						<span class="list-span" title="{$obj['name']}" title="{$obj['name']}">{$obj['name']}</span>
+					</a>
+				</li>
+				{/volist}
+				{else}
+				{volist name="mvso_zylist" id="obj"}
+				<li class="list">
+					<a href="/index/play/type/{$Request.param.type}/id/{$obj['list']['video']['id']}/number/1" class="list-a">
+						<img class="list-img" src="{$obj['list']['video']['pic']}" title="{$obj['list']['video']['name']}" alt="{$obj['list']['video']['name']}">
+						<span class="list-span" title="{$obj['list']['video']['name']}" title="{$obj['list']['video']['name']}">{$obj['list']['video']['name']}</span>
+					</a>
+				</li>
+				{/volist}
+				{/if}
+			</ul>
+		</div>
+		<!-- 底部 -->
+		{include file="index/Footer"}
+	</body>
+</html>

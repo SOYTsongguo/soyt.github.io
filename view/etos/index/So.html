@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+	<head>
+		{include file="index/Include"}
+		<title>{$Think.config.config.webtitle}-{$Request.param.wd}-{$mvso_zyname}搜索结果</title>
+	</head>
+	
+	<body>
+		<!-- 引入头部 -->
+		{include file="index/Header"}
+		<main role="main">
+			<div class="container">
+				<div class="row mb-2">
+					<div class="col-12 px-2 px-md-3">
+						<div class="jumbotron py-2 mb-2 bg-dark text-center text-light">
+							{$Think.config.config.webtitle}-{$Request.param.wd}-{$mvso_zyname}搜索结果
+						</div>
+					</div>
+					<div class="row px-md-2 mb-3" style="display: block;margin: 0 auto;width: 100%;">
+						<div style="flex: 1;margin-left: 10px;">
+						<a class="btn btn-sm btn-dark" style="margin-top: 5px;" href="/index/so/wd/{$Request.param.wd}/type/360">推荐</a>
+						{volist name="mvso_zy" id="obj"}
+						<a class="btn btn-sm btn-dark" style="margin-top: 5px;" href="/index/so/wd/{$Request.param.wd}/type/{$i-1}" title="{$obj[0]}">{$obj[0]}</a>
+						{/volist}
+						</div>
+					</div>
+					{if($Request.param.type == '360')}
+					{volist name="mvso_solist['list']" id="obj"}
+					<div class="col-4 col-md-2 mb-2 mb-md-4 px-2 px-md-3">
+						<div class="card rounded-0 border-0 bg-transparent">
+							<a class="text-light text-decoration-none" href="/index/play/type/{$obj['type']}/id/{$obj['id']}/number/1">
+								<!-- <span class="position-absolute w-100 h-100 bg-play">{$obj['name']}</span> -->
+								<img class="w-100 h-row rounded-top" src="{$obj['img']}" data-original="{$obj['img']}" alt="{$obj['name']}">
+								<p class="bg-dark rounded-bottom text-center text-truncate py-1 px-2 mb-0">{$obj['name']}</p>
+							</a>
+						</div>
+					</div>
+					{/volist}
+					{else}
+					{volist name="mvso_zylist" id="obj"}
+					<div class="col-4 col-md-2 mb-2 mb-md-4 px-2 px-md-3">
+						<div class="card rounded-0 border-0 bg-transparent">
+							<a class="text-light text-decoration-none" href="/index/play/type/{$Request.param.type}/id/{$obj['list']['video']['id']}/number/1">
+								<!-- <span class="position-absolute w-100 h-100 bg-play">{$obj['list']['video']['name']}</span> -->
+								<img class="w-100 h-row rounded-top" src="{$obj['list']['video']['pic']}" data-original="{$obj['list']['video']['pic']}" alt="{$obj['list']['video']['name']}">
+								<p class="bg-dark rounded-bottom text-center text-truncate py-1 px-2 mb-0">{$obj['list']['video']['name']}</p>
+							</a>
+						</div>
+					</div>
+					{/volist}
+					{/if}
+				</div>
+				<!-- 引入底部 -->
+				{include file="index/Footer"}
+			</div>
+		</main>
+	</body>
+</html>

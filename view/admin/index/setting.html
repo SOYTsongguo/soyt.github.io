@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>网站设置</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="{__PUBLIC_ADMIN__}/lib/layui-v2.5.5/css/layui.css" media="all">
+    <link rel="stylesheet" href="{__PUBLIC_ADMIN__}/css/public.css" media="all">
+    <style>
+        .layui-form-item .layui-input-company {width: auto;padding-right: 10px;line-height: 38px;}
+    </style>
+</head>
+<body>
+
+<div class="layuimini-container">
+    <div class="layuimini-main">
+
+        <div class="layui-form layuimini-form">
+			<!-- 网站名称 -->
+			<form action="" onsubmit="return false;">
+				<div class="layui-form-item">
+					<label class="layui-form-label required">网站名称</label>
+					<div class="layui-input-block">
+						<input type="text" name="webtitle" lay-verify="required" lay-reqtext="网站名称不能为空" placeholder="请输入网站名称"  value="{$Think.config.config.webtitle}" class="layui-input">
+						<tip>填写自己部署网站的名称。</tip>
+					</div>
+				</div>
+				<!-- META关键词 -->
+				<div class="layui-form-item layui-form-text">
+					<label class="layui-form-label required">META关键词</label>
+					<div class="layui-input-block">
+						<textarea name="keywords" class="layui-textarea" placeholder="多个关键词用英文状态 , 号分割">{$Think.config.config.keywords}</textarea>
+					</div>
+				</div>
+				<!-- META描述 -->
+				<div class="layui-form-item layui-form-text">
+					<label class="layui-form-label required">META描述</label>
+					<div class="layui-input-block">
+						<textarea name="description" class="layui-textarea" placeholder="请输入META描述">{$Think.config.config.description}</textarea>
+					</div>
+				</div>
+				<!-- 模板切换 -->
+				<div class="layui-form-item layui-form-text">
+					<label class="layui-form-label required">模板切换</label>
+					<div class="layui-input-inline">
+						<select name="view" class="view-selector" data-value="view" lay-filter="view">
+							<option value="etos" {if($Think.config.config.view == 'etos')}selected{/if}>etos</option>
+							<option value="index" {if($Think.config.config.view == 'index')}selected{/if}>index</option>
+						</select>
+					</div>
+				</div>
+				<!-- 友情链接 -->
+				<div class="layui-form-item layui-form-text">
+					<label class="layui-form-label">友情链接</label>
+					<div class="layui-input-block">
+						<textarea name="link" class="layui-textarea" placeholder="请输入友情链接">{$Think.config.config.link}</textarea>
+						<tip>一行一个，中间不能有空格</tip>
+					</div>
+				</div>
+				<!-- CNZZ统计 -->
+				<div class="layui-form-item layui-form-text">
+					<label class="layui-form-label">CNZZ统计</label>
+					<div class="layui-input-block">
+						<textarea name="cnzz" class="layui-textarea" placeholder="请输入CNZZ统计代码">{$Think.config.config.cnzz}</textarea>
+					</div>
+				</div>
+				<!-- 版权信息 -->
+				<div class="layui-form-item layui-form-text">
+					<label class="layui-form-label required">版权信息</label>
+					<div class="layui-input-block">
+						<textarea name="copyright" class="layui-textarea">{$Think.config.config.copyright}</textarea>
+					</div>
+				</div>
+				<!-- 网站作者 -->
+				<div class="layui-form-item">
+					<label class="layui-form-label required">网站名称</label>
+					<div class="layui-input-block">
+						<input type="text" name="author" lay-verify="required" lay-reqtext="网站作者不能为空" placeholder="请输入网站作者"  value="{$Think.config.config.author}" class="layui-input">
+						<tip>填写自己的名称。</tip>
+					</div>
+				</div>
+				<!-- 网站域名 -->
+				<div class="layui-form-item">
+					<label class="layui-form-label required">网站域名</label>
+					<div class="layui-input-block">
+						<input type="text" name="url" lay-verify="required" lay-reqtext="网站域名不能为空" placeholder="请输入网站域名"  value="{$Think.config.config.url}" class="layui-input">
+						<tip>填写自己部署网站的域名。</tip>
+					</div>
+				</div>
+				<!-- 确认保存 -->
+				<div class="layui-form-item">
+					<div class="layui-input-block">
+						<button class="layui-btn layui-btn-normal" lay-submit="" lay-filter="setting">确认保存</button>
+					</div>
+				</div>
+			</form>
+        </div>
+    </div>
+</div>
+<script src="{__PUBLIC_ADMIN__}/lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
+<script>
+    layui.use(['form',"jquery"], function () {
+        var $ = layui.jquery,
+			form = layui.form,
+            layer = layui.layer;
+		
+        // 进行登录操作
+        form.on('submit(setting)', function (data) {
+            data = data.field;
+    		
+    		$.post('/admin/setting',data,function(res){
+    			if(res.status=='success'){
+    				layer.msg(res.msg, function () {
+    				    window.location = '/admin/setting';
+    				});
+    			}else{
+    				layer.msg(res.msg);
+    				return false;
+    			}
+    		});
+    		
+            return false;
+        });
+    });
+</script>
+</body>
+</html>

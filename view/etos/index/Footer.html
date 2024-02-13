@@ -1,0 +1,35 @@
+	<div class="row">
+		<div class="col-md-4">
+			<h4>2020免费电影</h4>
+			<p>提供2020年上映的免费电影，即不收费就可观看和下载的电影。随着Internet的快速发展，许多网站都陆续都推出了。小小影视网正是这样一家网站，本站纯属爱好制作，不接受任何商业广告。</p>
+		</div>
+		<div class="col-md-4">
+			<h4>2020最新电影</h4>
+			<p>提供2020年高清电影，2020年最新电视剧，好看的西瓜影音，百度影音电影和免费快播电影,最新最全的大片资源，都是高质量的精选电影，一定满足不同口味的观众需求。</p>
+		</div>
+		<div class="col-md-4">
+			<h4>2020好看电影</h4>
+			<p>免费的清晰度不太高影视业务，当然也包括免费的视频网站，免费电影可以用搜索引擎搜索，一般情况下是在搜索框中输入&quot;免费电影&quot;、&quot;免费视频&quot;等关键词，便有不少互联网的免费电影站点</p>
+		</div>
+	</div>
+	<!-- -->
+</div>
+<!-- /container -->
+<footer role="footer">
+	<hr />
+	<p class="text-center mb-0">
+		{volist name="mvso_link" id="obj"}
+		<a class="text-muted small" href="{$obj[1]}" style="font-size: 16px;">{$obj[0]}</a>
+		{/volist}
+	</p>
+	<p class="text-center mb-0">{$Think.config.config.cnzz|raw}</p>
+	<p class="text-center">{$Think.config.config.copyright|raw}</p>
+</footer>
+<script type="text/javascript">
+	$('button').click(function(){
+		var data = $('[name="wd"]').val();
+		if(data!=''){
+			window.location.href = '/index/so/wd/' + data + '/type/360';
+		}
+	});
+</script>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<style type="text/css">
+			*{
+				margin: 0;
+				padding: 0;
+				text-align: center;
+				color: #FB7;
+			}
+		</style>
+		{if($mvso_update['state']) == 1}
+		<h5>最新版本：{$mvso_update['v']}</h5>
+		<h4>有更新啦！</h4>
+		<span>下载链接：</span>
+		<h3><strong>{$mvso_update['url']}</strong></h3>
+		{else}
+		<h3>已经是最新版啦！</h3>
+		{/if}
+	</body>
+</html>
